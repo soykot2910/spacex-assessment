@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   launchItems: [],
-  filterItems: [],
+  allData:[],
   isLoading: true,
 };
 
@@ -24,7 +24,7 @@ const lancheSlice = createSlice({
   initialState,
   reducers: {
     handleSearch: (state, action) => {
-      state.filterItems = state.launchItems.filter((item) =>
+      state.launchItems = state.allData.filter((item) =>
         item.rocket.rocket_name
           .toLowerCase()
           .includes(action.payload.toLowerCase())
@@ -43,18 +43,18 @@ const lancheSlice = createSlice({
       let startDate = new Date(formate(action.payload));
       let endDate = new Date();
 
-      state.filterItems = state.launchItems?.filter((a) => {
+      state.launchItems = state.allData?.filter((a) => {
         let date = new Date(a.launch_date_local);
         return date >= startDate && date <= endDate;
       });
     },
     filterByIsUpcoming: (state, action) => {
-      state.filterItems=state.launchItems.filter((item) =>
+      state.launchItems=state.allData.filter((item) =>
        item.upcoming === JSON.parse(action.payload)
       );
     },
     filterByLaunchStatus: (state, action) => {
-      state.filterItems = state.launchItems.filter(
+      state.launchItems = state.allData.filter(
         (item) => item.launch_success === JSON.parse(action.payload)
       );
     },
@@ -66,6 +66,7 @@ const lancheSlice = createSlice({
     [getLaunchItems.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.launchItems = action.payload;
+      state.allData = action.payload;
     },
     [getLaunchItems.rejected]: (state) => {
       state.isLoading = false;

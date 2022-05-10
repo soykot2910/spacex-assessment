@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import {
-  filterByLaunchStatus,
-  filterByIsUpcoming,
-  filterByDate,
-} from "../redux/slices/launchSlice";
 
-const Filters = ({data}) => {
-  const dispatch = useDispatch();
-  const [selectedDate, setSelectedDate] = useState("Launch Date");
-  const [launchStatus, setLaunchStatus] = useState("Launch Status");
-  const [upcoming, setUpcoming] = useState("Is it upcoming?");
-
-  const handleLaunchStatus = (e) => {
-    setLaunchStatus(e.target.value);
-    dispatch(filterByLaunchStatus(e.target.value));
-  };
-
-  const handleIsUpcoming = (e) => {
-    setUpcoming(e.target.value);
-    dispatch(filterByIsUpcoming(e.target.value));
-  };
-
-  const handleDateFilter = (e) => {
-    setSelectedDate(e.target.value);
-    dispatch(filterByDate(Number(e.target.value)));
+const Filters = ({
+  selectedDate,
+  launchStatus,
+  upcoming,
+  setLaunchStatus,
+  setUpcoming,
+  setSelectedDate,
+  allData,
+  isLoading
+}) => {
+  const handleReset = () => {
+    setLaunchStatus("Launch Status");
+    setUpcoming("Is it upcoming?");
+    setSelectedDate("Launch Date");
   };
 
   return (
     <div className="flex justify-between md:items-center">
-      <p className="font-medium text-[#30545B]"> {data.length} Results</p>
+      <p className="font-medium text-[#30545B]">{allData.length} Results</p>
       <div className="flex justify-between items-center flex-col md:flex-row">
+        {(allData.length < 1 && !isLoading) && (
+          <button
+            className="bg-blue-700 text-white font-medium px-2 py-1 rounded-md mr-5"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        )}
         <h3 className="font-bold text-[#30545B] text-lg">Sort by</h3>
-        <div className="px-3 ">
+        <div className="px-3">
           <select
             value={selectedDate}
-            onChange={handleDateFilter}
+            onChange={(e) => setSelectedDate(e.target.value)}
             className="p-3 rounded-md font-medium outline-none borders-2 border-[#EDEDED]"
           >
             <option disabled>Launch Date</option>
@@ -48,7 +45,7 @@ const Filters = ({data}) => {
         <div className="my-3 md:my-0">
           <select
             value={launchStatus}
-            onChange={handleLaunchStatus}
+            onChange={(e) => setLaunchStatus(e.target.value)}
             className="p-3 mr-2 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
           >
             <option disabled>Launch Status</option>
@@ -59,7 +56,7 @@ const Filters = ({data}) => {
         <div className="">
           <select
             value={upcoming}
-            onChange={handleIsUpcoming}
+            onChange={(e) => setUpcoming(e.target.value)}
             className="p-3 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
           >
             <option disabled>Is it upcoming?</option>
