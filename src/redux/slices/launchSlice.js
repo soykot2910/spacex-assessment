@@ -35,13 +35,16 @@ const lancheSlice = createSlice({
     filterByLaunchStatus: (state, action) => {
       if (state.filterItems.length) {
         state.filterItems = state.filterItems.filter(
-          (item) => item.launch_success === action.payload
+          (item) => item.launch_success === JSON.parse(action.payload)
         );
       } else {
         state.filterItems = state.launchItems.filter(
-          (item) => item.launch_success === action.payload
+          (item) => item.launch_success === JSON.parse(action.payload)
         );
       }
+      //   state.filterItems = state.launchItems.filter(
+      //     (item) => item.launch_success === JSON.parse(action.payload)
+      //   );
     },
   },
   extraReducers: {
@@ -58,5 +61,5 @@ const lancheSlice = createSlice({
   },
 });
 
-export const { handleSearch } = lancheSlice.actions;
+export const { handleSearch, filterByLaunchStatus } = lancheSlice.actions;
 export default lancheSlice.reducer;

@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { filterByLaunchStatus } from "../redux/slices/launchSlice";
 
 const Filters = () => {
+  const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState("");
-  const [launchStatus, setLaunchStatus] = useState("");
+  const [launchStatus, setLaunchStatus] = useState();
   const [upcoming, setUpcoming] = useState("");
 
+  useEffect(() => {
+    dispatch(filterByLaunchStatus(launchStatus));
+  }, [launchStatus]);
 
   return (
     <div className="flex justify-between items-center">
@@ -30,8 +36,8 @@ const Filters = () => {
             className="p-3 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
           >
             <option>Launch Status</option>
-            <option value="true">Success</option>
-            <option value="false">Failure</option>
+            <option value={"true"}>Success</option>
+            <option value={"false"}>Failure</option>
           </select>
         </div>
         <div className="">

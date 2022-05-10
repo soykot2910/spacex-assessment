@@ -27,9 +27,10 @@ const Home = () => {
 //     }
 //   }, [filterItems]);
 
-  console.log(displayData)
 
     let allData = filterItems.length > 0 ? filterItems : launchItems;
+
+    console.log(allData)
 
   return (
     <>

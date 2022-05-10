@@ -1,7 +1,6 @@
 import React from "react";
 
 const LaunchCard = ({item}) => {
-    console.log(item)
   return (
     <div
       class="bg-white rounded-lg border flex flex-col items-center 
