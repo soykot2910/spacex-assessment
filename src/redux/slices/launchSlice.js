@@ -43,9 +43,9 @@ const lancheSlice = createSlice({
         return date >= startDate && date <= endDate;
       });
     },
-    filterByIsUpcoming: (state, { payload }) => {
+    filterByIsUpcoming: (state, action) => {
       state.filterItems = state.launchItems.map(
-        (item) => item.upcoming == false
+        (item) => item.upcoming === JSON.parse(action.payload)
       );
     },
     filterByLaunchStatus: (state, action) => {

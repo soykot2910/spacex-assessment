@@ -6,7 +6,7 @@ import {
   filterByDate,
 } from "../redux/slices/launchSlice";
 
-const Filters = () => {
+const Filters = ({data}) => {
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState("Launch Date");
   const [launchStatus, setLaunchStatus] = useState("Launch Status");
@@ -29,7 +29,7 @@ const Filters = () => {
 
   return (
     <div className="flex justify-between items-center">
-      <p className="font-medium text-[#30545B]"> Results</p>
+      <p className="font-medium text-[#30545B]"> {data.length} Results</p>
       <div className="flex justify-between items-center">
         <h3 className="font-bold text-[#30545B] text-lg">Sort by</h3>
         <div className="px-3">
@@ -61,7 +61,7 @@ const Filters = () => {
             onChange={handleIsUpcoming}
             className="p-3 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
           >
-            <option>Is it upcoming?</option>
+            <option disabled>Is it upcoming?</option>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>

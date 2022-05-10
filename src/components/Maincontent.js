@@ -6,7 +6,7 @@ import { Spinner } from "./SVGIcons";
 export const Maincontent = ({ data, isLoading }) => {
   return (
     <div className="bg-[#F1F9F9] w-full lg:w-[70%]  border-l-2 border-[#EDEDED] px-12 pt-2">
-      <Filters />
+      <Filters data={data}/>
       {isLoading ? (
         <Spinner />
       ) : (
