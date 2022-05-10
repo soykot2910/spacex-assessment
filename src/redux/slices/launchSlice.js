@@ -31,21 +31,26 @@ const lancheSlice = createSlice({
       );
     },
     filterByDate: (state, action) => {
-      console.log(action.payload);
-      let startDate = new Date(action.payload).toLocaleDateString("en-US");
-
-      let endDate = new Date().toLocaleDateString("en-US");
-
-      state.filterItems = state.launchItems.filter((item) => {
-        let date = new Date(item.launch_date_unix * 1000).toLocaleDateString(
-          "en-US"
+      const formate = (date) => {
+        const now = new Date();
+        return new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate() - date
         );
+      };
+
+      let startDate = new Date(formate(action.payload));
+      let endDate = new Date();
+
+      state.filterItems = state.launchItems?.filter((a) => {
+        let date = new Date(a.launch_date_local);
         return date >= startDate && date <= endDate;
       });
     },
     filterByIsUpcoming: (state, action) => {
-      state.filterItems = state.launchItems.map(
-        (item) => item.upcoming === JSON.parse(action.payload)
+      state.filterItems=state.launchItems.filter((item) =>
+       item.upcoming === JSON.parse(action.payload)
       );
     },
     filterByLaunchStatus: (state, action) => {

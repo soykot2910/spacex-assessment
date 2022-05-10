@@ -1,11 +1,10 @@
 import React from "react";
-import { LeftArrow } from "./SVGIcons";
 
 const LaunchCard = ({ item }) => {
   return (
     <div
       className="bg-white rounded-lg border flex flex-col items-center 
-                  border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+                  border-gray-200 shadow-md"
     >
       <img
         className="rounded-t-lg"
@@ -33,7 +32,7 @@ const LaunchCard = ({ item }) => {
           </span>
         </h5>
         <p className="mb-3  font-normal text-gray-700 ">
-          <b>Description:</b> {item.details}
+          <b>Details:</b> {item.details}
         </p>
         <a href={item.links.article_link} className="text-blue-600 font-bold">
           Learn More <span className="text-xl"> > </span>

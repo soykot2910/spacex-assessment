@@ -7,11 +7,11 @@ const Navbar = () => {
     const dispatch = useDispatch();
   return (
     <nav className="py-4">
-      <div className="w-full md:w-[90%] mx-auto flex flex-wrap justify-between items-center">
+      <div className="w-full md:w-[90%] mx-auto flex flex-wrap justify-center md:justify-between items-center">
         <a href="#" className="flex items-center">
           <img
             src="/images/new-logo.png"
-            className="w-[250px] h-[31px]"
+            className="w-[250px] h-[31px] mb-5 md:mb-0"
             alt="Logo"
           />
         </a>
@@ -22,7 +22,7 @@ const Navbar = () => {
             name="search"
             type="text"
             onChange={(e) => dispatch(handleSearch(e.target.value))}
-            className="p-3 pl-10 w-[500px] lg:w-[800px] rounded-md  border-2 outline-none border-[#EDEDED]"
+            className="p-3 pl-10 w-[300px] md:w-[500px] lg:w-[800px] rounded-md  border-2 outline-none border-[#EDEDED]"
           />
           <button className="absolute right-3 bg-[#00B2B2] font-medium text-white py-1.5 px-4 rounded-md">
             Search
