@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { filterByLaunchStatus } from "../redux/slices/launchSlice";
+import {
+  filterByLaunchStatus,
+  filterByIsUpcoming,
+  filterByDate,
+} from "../redux/slices/launchSlice";
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const [selectedDate, setSelectedDate] = useState("");
-  const [launchStatus, setLaunchStatus] = useState();
+  const [selectedDate, setSelectedDate] = useState("Launch Date");
+  const [launchStatus, setLaunchStatus] = useState("Launch Status");
   const [upcoming, setUpcoming] = useState("");
 
-  useEffect(() => {
-    dispatch(filterByLaunchStatus(launchStatus));
-  }, [launchStatus]);
+  const handleLaunchStatus = (e) => {
+    setLaunchStatus(e.target.value);
+    dispatch(filterByLaunchStatus(e.target.value));
+  };
+
+  const handleIsUpcoming = (e) => {
+    setUpcoming(e.target.value);
+    dispatch(filterByIsUpcoming(e.target.value));
+  };
+
+  const handleDateFilter = (e) => {
+    setSelectedDate(e.target.value);
+    dispatch(filterByDate(Number(e.target.value)));
+  };
 
   return (
     <div className="flex justify-between items-center">
@@ -20,35 +35,35 @@ const Filters = () => {
         <div className="px-3">
           <select
             value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
+            onChange={handleDateFilter}
             className="p-3 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
           >
-            <option>Launch Date</option>
-            <option value="week">Last Week</option>
-            <option value="month">Last Month</option>
-            <option value="year">Last Year</option>
+            <option disabled>Launch Date</option>
+            <option value="7">Last Week</option>
+            <option value="30">Last Month</option>
+            <option value="360">Last Year</option>
           </select>
         </div>
         <div className="">
           <select
             value={launchStatus}
-            onChange={(e) => setLaunchStatus(e.target.value)}
-            className="p-3 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
+            onChange={handleLaunchStatus}
+            className="p-3 mr-2 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
           >
-            <option>Launch Status</option>
-            <option value={"true"}>Success</option>
-            <option value={"false"}>Failure</option>
+            <option disabled>Launch Status</option>
+            <option value={true}>Success</option>
+            <option value={false}>Failure</option>
           </select>
         </div>
         <div className="">
           <select
             value={upcoming}
-            onChange={(e) => setUpcoming(e.target.value)}
+            onChange={handleIsUpcoming}
             className="p-3 rounded-md font-medium outline-none  borders-2 border-[#EDEDED]"
           >
             <option>Is it upcoming?</option>
-            <option value="true">Yes</option>
-            <option value="false">No</option>
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
           </select>
         </div>
       </div>
